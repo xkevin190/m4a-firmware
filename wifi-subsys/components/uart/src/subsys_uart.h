@@ -67,7 +67,7 @@ void received_sensor_data(uint8_t *values);
  * @brief this function is a handler where will be identified AT commands
  * and it will executed  the functions for controlled  the wifi.
  *
- * @param at_comant [in] AT comands
+ * @param at_comant [in] AT commands
  */
 int sendData(const char *logName, char *data);
 

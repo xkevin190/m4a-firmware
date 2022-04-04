@@ -43,7 +43,6 @@ typedef struct {
 } at_request_t;
 /** @} */
 
-
 enum at_keys_n {
     NVS_RST = 0,  /*!< Restore the subsystem to factory settings */
     WIFI_OFF,     /*!< Turn off the WiFi interface */
@@ -64,7 +63,7 @@ enum at_keys_n {
  * @brief this function is a handler where will be identified AT commands
  * and it will executed  the functions for controlled  the wifi.
  *
- * @param at_commant [in] AT comands
+ * @param at_commant [in] AT commands
  */
 void at_handler(uint8_t* at_commant);
 
