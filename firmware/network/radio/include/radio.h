@@ -29,6 +29,7 @@
 extern "C" {
 #endif
 
+int set_global_ipv6_to_radio (void);
 
 #ifdef __cplusplus
 }

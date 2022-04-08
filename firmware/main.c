@@ -30,12 +30,15 @@
 
 #include "log.h"
 #include "board.h"
+#include "radio.h"
 
 static shell_command_t shell_extended_commands[] = {
     {NULL, NULL, NULL}};
 
 int main(void)
 {
+
+    set_global_ipv6_to_radio();
     LOG_INFO("~~ Welcome to Mesh4all ~~\n");
 
     /* Start shell */
