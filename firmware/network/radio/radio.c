@@ -21,27 +21,29 @@
  */
 #include <stdint.h>
 #include <stdio.h>
+#include "net/gnrc/netif.h"
+#include "net/netif.h"
 
 #include "uniqueid.h"
 
 #define STATIC_IFACE (4)
 
-int setGlobalIpv6 (void) 
+int set_global_ipv6_to_radio (void) 
 {   
   ipv6_addr_t global_ipv6 = {
         .u8 = {0},
     };
-  subnet_to_ipv6(&global_ipv6);  
+    subnet_to_ipv6(&global_ipv6);  
 
     gnrc_netif_t *iface = gnrc_netif_get_by_pid(STATIC_IFACE);
-    if (wifi_iface == NULL) {
+    if (iface == NULL) {
         printf("Error: interface doesn't exists.\n");
         return -1;
     }
    
 
     /* Add node IPv6 global address */
-    if (gnrc_netif_ipv6_addr_add(iface, &addr,
+    if (gnrc_netif_ipv6_addr_add(iface, &global_ipv6,
                                  64,
                                  GNRC_NETIF_IPV6_ADDRS_FLAGS_STATE_VALID) < 0) {
         printf("Error: Couldn't add IPv6 global address\n");
