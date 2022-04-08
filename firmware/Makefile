@@ -28,7 +28,6 @@ USEMODULE += ps
 #	target board
 USEMODULE += radio
 USEMODULE += storage
-# USEMODULE += uniqueid
 
 EXTERNAL_MODULE_DIRS += network
 EXTERNAL_MODULE_DIRS += sys

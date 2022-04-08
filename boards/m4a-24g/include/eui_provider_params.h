@@ -18,7 +18,7 @@
 #ifndef EUI_PROVIDER_PARAMS_H
 #define EUI_PROVIDER_PARAMS_H
 
-#include "edbg_eui.h"
+// #include "edbg_eui.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,24 +27,24 @@ extern "C" {
 /**
  * @brief    EDBG provides a EUI-64, the same that is printed on the board
  */
-static inline int _edbg_get_eui64(uint8_t index, eui64_t *addr)
-{
-    (void)index;
+// static inline int _edbg_get_eui64(uint8_t index, eui64_t *addr)
+// {
+//     (void)index;
 
-    /* EDBG can take a while to respond on cold boot */
-    unsigned tries = 10000;
-    while (--tries && edbg_get_eui64(addr)) {}
-    return tries ? 0 : -1;
-}
+//     /* EDBG can take a while to respond on cold boot */
+//     unsigned tries = 10000;
+//     while (--tries && edbg_get_eui64(addr)) {}
+//     return tries ? 0 : -1;
+// }
 
 /**
  * @name    EUI sources on the board
  *          EUI-64 inside EDBG for the internal radio
  * @{
  */
-#define EUI64_PROVIDER_FUNC   _edbg_get_eui64
-#define EUI64_PROVIDER_TYPE   NETDEV_AT86RF2XX
-#define EUI64_PROVIDER_INDEX  0
+// #define EUI64_PROVIDER_FUNC   _edbg_get_eui64
+// #define EUI64_PROVIDER_TYPE   NETDEV_AT86RF2XX
+// #define EUI64_PROVIDER_INDEX  0
 /** @} */
 
 #ifdef __cplusplus
