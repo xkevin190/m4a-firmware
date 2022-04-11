@@ -23,32 +23,45 @@
 #include <stdio.h>
 #include "net/gnrc/netif.h"
 #include "net/netif.h"
-
+#include "net/netdev/ieee802154.h"
+#include "net/gnrc.h"
 #include "uniqueid.h"
+#include "radio.h"
 
 #define STATIC_IFACE (4)
 
-int set_global_ipv6_to_radio (void) 
-{   
-  ipv6_addr_t global_ipv6 = {
+uint8_t get_ieee802154_iface(uint8_t max_ifaces) {
+    gnrc_netif_t *iface;
+    if (max_ifaces > 0) {
+        iface = gnrc_netif_get_by_type(NETDEV_AT86RF2XX, NETDEV_INDEX_ANY);
+        if(iface != NULL){
+            return iface->pid;
+        }
+        else{
+            return 0;
+        }
+    }
+    return 0;
+}
+
+int set_global_ipv6_to_radio(void) {
+    ipv6_addr_t global_ipv6 = {
         .u8 = {0},
     };
-    subnet_to_ipv6(&global_ipv6);  
+    subnet_to_ipv6(&global_ipv6);
 
     gnrc_netif_t *iface = gnrc_netif_get_by_pid(STATIC_IFACE);
     if (iface == NULL) {
         printf("Error: interface doesn't exists.\n");
         return -1;
     }
-   
 
     /* Add node IPv6 global address */
-    if (gnrc_netif_ipv6_addr_add(iface, &global_ipv6,
-                                 64,
-                                 GNRC_NETIF_IPV6_ADDRS_FLAGS_STATE_VALID) < 0) {
+    if (gnrc_netif_ipv6_addr_add(iface, &global_ipv6, 64, GNRC_NETIF_IPV6_ADDRS_FLAGS_STATE_VALID) <
+        0) {
         printf("Error: Couldn't add IPv6 global address\n");
         return -1;
     }
 
- return 0;
-} 
+    return 0;
+}

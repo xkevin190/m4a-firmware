@@ -25,11 +25,29 @@
 #ifndef RADIO_H
 #define RADIO_H
 
+#include "net/gnrc.h"
+#include "net/netdev.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-int set_global_ipv6_to_radio (void);
+enum {
+    IEEE802154_DRIVER_1 = NETDEV_AT86RF215,
+    IEEE802154_DRIVER_2 = NETDEV_AT86RF2XX,
+};
+
+/**
+ * @brief this function is used to send the sensors values
+ *
+ * @param[in] max_ifaces    Receives the number of ifaces founded
+ * @note Precondition: use the gnrc_netif_numof() this functions allows you known how many
+ * interfaces are connected and initialized
+ */
+
+uint8_t get_ieee802154_iface(uint8_t max_ifaces);
+
+int set_global_ipv6_to_radio(void);
 
 #ifdef __cplusplus
 }
