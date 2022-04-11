@@ -30,12 +30,19 @@
 
 #define STATIC_IFACE (4)
 
-uint8_t get_ieee802154_iface(uint8_t max_ifaces) {
+static uint8_t radio_devices[] = {
+    NETDEV_AT86RF215,
+    NETDEV_AT86RF2XX,
+};
+
+uint8_t *get_ieee802154_iface(uint8_t max_ifaces) {
     gnrc_netif_t *iface;
     if (max_ifaces > 0) {
-        iface = gnrc_netif_get_by_type(NETDEV_AT86RF2XX, NETDEV_INDEX_ANY);
+        for(uint8_t i=0; i < ARRAY_SIZE(radio_devices); i++){
+            iface = gnrc_netif_get_by_type(NETDEV_AT86RF2XX, NETDEV_INDEX_ANY);
+        }
         if(iface != NULL){
-            return iface->pid;
+            return (uint8_t*)&iface->pid;
         }
         else{
             return 0;

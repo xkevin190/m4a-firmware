@@ -32,11 +32,6 @@
 extern "C" {
 #endif
 
-enum {
-    IEEE802154_DRIVER_1 = NETDEV_AT86RF215,
-    IEEE802154_DRIVER_2 = NETDEV_AT86RF2XX,
-};
-
 /**
  * @brief this function is used to send the sensors values
  *
@@ -45,7 +40,7 @@ enum {
  * interfaces are connected and initialized
  */
 
-uint8_t get_ieee802154_iface(uint8_t max_ifaces);
+uint8_t *get_ieee802154_iface(uint8_t max_ifaces);
 
 int set_global_ipv6_to_radio(void);
 
