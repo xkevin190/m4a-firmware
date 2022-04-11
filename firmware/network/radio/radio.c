@@ -38,17 +38,23 @@ static uint8_t radio_devices[] = {
 uint8_t *get_ieee802154_iface(uint8_t max_ifaces) {
     gnrc_netif_t *iface;
     if (max_ifaces > 0) {
-        for(uint8_t i=0; i < ARRAY_SIZE(radio_devices); i++){
+        for (uint8_t i = 0; i < ARRAY_SIZE(radio_devices); i++) {
             iface = gnrc_netif_get_by_type(radio_devices[i], NETDEV_INDEX_ANY);
         }
-        if(iface != NULL){
-            return (uint8_t*)&iface->pid;
-        }
-        else{
+        if (iface != NULL) {
+            return (uint8_t *)&iface->pid;
+        } else {
             return 0;
         }
     }
     return 0;
+}
+
+void set_sleep_iface(uint8_t iface_id) {
+    gnrc_netif_t *iface = gnrc_netif_get_by_pid(iface_id);
+    netif_set_opt((netif_t *)&iface,
+                NETOPT_STATE, 0,
+                NETOPT_STATE_SLEEP, sizeof(NEPOPT_STATE)));
 }
 
 int set_global_ipv6_to_radio(void) {
