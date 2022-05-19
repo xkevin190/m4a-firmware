@@ -25,9 +25,16 @@
 #ifndef UNIQUEID_H
 #define UNIQUEID_H
 
-#include "periph/cpuid.h"
 #include "board.h"
 #include "net/ipv6/addr.h"
+
+#include "periph/cpuid.h"
+
+
+
+#ifndef CPUID
+#define CPUID(id)  cpuid_get(id)
+#endif
 
 #ifdef __cplusplus
 extern "C" {

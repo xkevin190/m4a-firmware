@@ -44,7 +44,7 @@ int init_temperature_sensor (int pin)
     }
 
     return 0;
-};
+}
 
 int get_temperature_value (int16_t* output)
 {
@@ -61,4 +61,4 @@ int get_temperature_value (int16_t* output)
     }
 
     return 0;
-};
+}

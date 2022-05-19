@@ -40,9 +40,17 @@
 #include "periph/uart.h"
 #include "board.h"
 
+#include "periph/cpuid.h"
+
+
 #define MAIN_QUEUE_SIZE (8)
 #define UART_PORT UART_DEV(1)
 #define ADDRESS_TO_SEND "fe80::204:2519:1801:cad4"
+
+#ifndef CPUID
+#define CPUID(id)  cpuid_get(id);
+#endif
+
 
 msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 char get_sensor_event[THREAD_STACKSIZE_DEFAULT];
@@ -66,7 +74,7 @@ void *init_loop(void *args) {
         if (cbor_enconde_message(&payload, buffer, &len_cbor) < 0) {
             printf("error to encode payload with cbor");
         } else {
-            udp_send(&port, ADRESS_TO_SEND, buffer, &len_cbor);
+            udp_send(&port, ADDRESS_TO_SEND, buffer, &len_cbor);
         }
         xtimer_sleep(60);
     }

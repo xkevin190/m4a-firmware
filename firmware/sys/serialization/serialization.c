@@ -26,6 +26,7 @@
 #include "cbor.h"
 #include "board.h"
 
+
 int cbor_decode_message(uint8_t *buffer, sensor_data *data, size_t length) {
     CborParser parser;
     CborValue it;
