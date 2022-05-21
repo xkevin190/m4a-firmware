@@ -41,7 +41,24 @@ EXTERNAL_MODULE_DIRS += $(CURDIR)/../../firmware/peripherals
 EXTERNAL_MODULE_DIRS += $(CURDIR)/../../firmware/network
 EXTERNAL_MODULE_DIRS += $(CURDIR)/../../firmware/sys
 
+
+USE_ZEP ?= 0
+
+# set the ZEP port for native
+ZEP_PORT_BASE ?= 17754
+ifeq (1,$(USE_ZEP))
+  TERMFLAGS += -z [::1]:$(ZEP_PORT_BASE)
+  USEMODULE += socket_zep
+
+  ifneq (,$(ZEP_MAC))
+    TERMFLAGS += --eui64=$(ZEP_MAC)
+  endif
+endif
+
+
 # Use UART_DEV(1) for slipdev as a default, baudrate by default is 115200
 
 
 include $(RIOTBASE)/Makefile.include
+
+include $(RIOTMAKE)/default-radio-settings.inc.mk
