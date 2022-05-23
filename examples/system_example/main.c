@@ -51,6 +51,8 @@
 #define CPUID(id)  cpuid_get(id);
 #endif
 
+// #define CONFIG_IS_DODAG 0
+
 
 msg_t _main_msg_queue[MAIN_QUEUE_SIZE];
 char get_sensor_event[THREAD_STACKSIZE_DEFAULT];
@@ -94,26 +96,26 @@ int main(void) {
 
     rpl_setup();
 
-#if CONFIG_IS_DODAG == 0
+// #if CONFIG_IS_DODAG == 0
 
-    int8_t err = init_temperature_sensor(17);
-    if (err != 0) {
-        printf("Error: temperature sensor not inizializated");
-        return err;
-    }
-    if (thread_create(get_sensor_event, sizeof(get_sensor_event), THREAD_PRIORITY_MAIN - 1,
-                      THREAD_CREATE_STACKTEST, *init_loop, NULL,
-                      "Sensors event") <= KERNEL_PID_UNDEF) {
-        printf("peripherals event loop could not init \n");
-        return -1;
-    }
-#else
-    udpf_payload payload;
-    payload.port = "3000";
-    payload.callback = &udp_callback;
-    udp_server(&payload);
-    config_at();
-#endif
+    // int8_t err = init_temperature_sensor(17);
+    // if (err != 0) {
+    //     printf("Error: temperature sensor not inizializated");
+    //     return err;
+    // }
+//     if (thread_create(get_sensor_event, sizeof(get_sensor_event), THREAD_PRIORITY_MAIN - 1,
+//                       THREAD_CREATE_STACKTEST, *init_loop, NULL,
+//                       "Sensors event") <= KERNEL_PID_UNDEF) {
+//         printf("peripherals event loop could not init \n");
+//         return -1;
+//     }
+// // #else
+//     udpf_payload payload;
+//     payload.port = "3000";
+//     payload.callback = &udp_callback;
+//     udp_server(&payload);
+//     config_at();
+// #endif
 
     shell_run(shell_extended_commands, line_buf, SHELL_DEFAULT_BUFSIZE);
 

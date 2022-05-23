@@ -22,6 +22,8 @@
 #include "radio.h"
 #include "uniqueid.h"
 
+// #define CONFIG_IS_DODAG 0
+
 int8_t rpl_init(kernel_pid_t iface_pid) {
     if (gnrc_netif_get_by_pid(iface_pid) == NULL) {
         puts("unknown interface specified");
@@ -91,15 +93,16 @@ int8_t rpl_setup(void) {
 
     subnet_to_ipv6(&ipv6);
 
-#ifdef CONFIG_IS_DODAG
-    err = gnrc_rpl_dodag_root(CONFIG_DODAG_INSTANCE, &ipv6);
-    if (err != 0) {
-        printf("Error: couldn't init the dodag node .\n");
-        return -1;
-    }
-#else
+
+// #ifdef CONFIG_IS_DODAG
+//     err = gnrc_rpl_dodag_root(CONFIG_DODAG_INSTANCE, &ipv6);
+//     if (err != 0) {
+//         printf("Error: couldn't init the dodag node .\n");
+//         return -1;
+//     }
+// #else
     printf("rpl initializated like slave.\n");
-#endif
+// #endif
 
     return 0;
 }

@@ -1,7 +1,0 @@
-/**
-@defgroup   wifi-subsys     WiFi Subsystem
-@brief      WiFi Subsystem running on esp32 MCUs
-
-# WiFi Subsystem
-
-*/

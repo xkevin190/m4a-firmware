@@ -31,7 +31,8 @@
 #include "net/netdev.h"
 #include "radio.h"
 
-static uint8_t radio_devices[] = {NETDEV_AT86RF215, NETDEV_AT86RF2XX, NETDEV_CC2538};
+static uint8_t radio_devices[] = {NETDEV_AT86RF215, NETDEV_AT86RF2XX, NETDEV_CC2538, NETDEV_SOCKET_ZEP};
+
 
 #ifdef CONFIG_MODE_SUB_24GHZ
 int8_t subtract_to_interface = 1;
@@ -221,11 +222,11 @@ int8_t initial_radio_setup(void) {
     int16_t radio_tx = CONFIG_TX_POWER;
     int16_t radio_channel = CONFIG_RADIO_CHANNEL;
 
-    err = set_global_ipv6_to_radio();
-    if (err == -1) {
-        printf("Error: Failed to add global address.\n");
-        return err;
-    }
+    // err = set_global_ipv6_to_radio();
+    // if (err == -1) {
+    //     printf("Error: Failed to add global address.\n");
+    //     return err;
+    // }
 
     err = set_netopt_tx_power(radio_tx);
     if (err == -1) {
